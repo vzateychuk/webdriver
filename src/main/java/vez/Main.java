@@ -1,30 +1,25 @@
 package vez;
 
-import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebDriver;
-import vez.asud.ProfilePage;
-import vez.asud.HomePage;
-import vez.asud.SignInPage;
+import vez.asud.login.*;
+
+import java.time.LocalTime;
 
 public class Main {
 
     public static void main(String[] args) throws InterruptedException {
         WebDriver driver = DriverManager.getChromeDriver();
+        System.out.println("Main.main. STARTED: "+ LocalTime.now());
 
         // open chrome with login
-        driver.get("http://localhost:8080/asud/component/main");
+        LoginAsUser login = new LoginAsUser(driver);
+        // login to the
+        HomePage homePage = login.loginValidUser("Сидоров С. С.");
+        homePage.clickTreeItemTasks();
 
-        // swallow the alert
-        Alert alt = driver.switchTo().alert();
-        alt.accept();
+        System.out.println("Main.main. FINISH: "+ LocalTime.now());
 
-        // login
-        SignInPage signInPage = new SignInPage(driver);
-        HomePage homePage = signInPage.loginValidUser("dmowner", "dmowner");
-
-        // choose profile
-        ProfilePage profilePage = homePage.openProfilePage();
-        profilePage.chooseProfile("Сидоров С. С.");
+        Thread.currentThread().wait(60000L);
 
         driver.quit();
 
