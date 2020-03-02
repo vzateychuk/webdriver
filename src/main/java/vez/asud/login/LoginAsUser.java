@@ -19,7 +19,8 @@ public class LoginAsUser {
 	 */
 	public HomePage loginValidUser(String userName) {
 		// open chrome with login
-		driver.get("http://localhost:8080/asud/component/main");
+		// driver.get("http://10.249.99.59:28083/mrsk_center2/component/main");
+		driver.get("http://as-center.devel:28080/asud/component/main");
 		// swallow the alert
 		Alert alt = driver.switchTo().alert();
 		alt.accept();
