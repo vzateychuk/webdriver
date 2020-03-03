@@ -1,53 +1,46 @@
 package vez;
 
+import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.support.AbstractApplicationContext;
+import vez.asud.config.Beans;
 import vez.asud.login.*;
 
+import java.time.Duration;
 import java.time.LocalTime;
+import java.time.temporal.Temporal;
 
 public class Main {
 
     public static void main(String[] args) throws InterruptedException {
-        WebDriver driver = DriverManager.getChromeDriver();
-        System.out.println("Main.main. STARTED: "+ LocalTime.now());
+
+        AbstractApplicationContext context = new AnnotationConfigApplicationContext(Beans.class);
+        WebDriver driver = (WebDriver) context.getBean("webDriverBean");
+
+        LocalTime startTime = LocalTime.now();
+        System.out.println("Main.main. STARTED: "+ startTime);
 
         // open chrome with login
         LoginAsUser login = new LoginAsUser(driver);
-        // login to the
+        // login as
         HomePage homePage = login.loginValidUser("Сидоров С. С.");
         homePage.clickTreeItemTasks();
 
-        System.out.println("Main.main. FINISH: "+ LocalTime.now());
+        LocalTime finishTime = LocalTime.now();
+        System.out.println("Main.main. FINISH: at "+ finishTime);
 
-        Thread.currentThread().wait(60000L);
+        // closing the application context
 
-        driver.quit();
-
-        // Assert.assertNotNull("Unsuccessful attempt", driver.findElement(By.name("OrgStructureViewer_branch_ddl_control_0")));
 /*
-        WebElement login = getWebElementById("LoginUsername");
-        login.sendKeys("dmowner");
-        WebElement pwd = getWebElementById("Login_password_0");
-        pwd.sendKeys("dmowner");
-        pwd.sendKeys(Keys.ENTER);
-
-        // wait and login as
-        By byLoginAs = By.name("TitleBar_enter_with_login_0");
-        wait.until(drv -> drv.findElement(byLoginAs) != null);
-        driver.findElement(byLoginAs).click();
-
-        wait.until(o -> !o.findElements(By.xpath("//*[@id='thumbnail']")).isEmpty());
-
-        driver.findElement(By.xpath("(//*[@id='thumbnail'])[1]")).click();
-        By byPlayerClassName = By.className("html5-video-container");
-        wait.until(o -> o.findElement(byPlayerClassName) != null);
-
-        System.out.println("Pause Video");
-        Actions actions = new Actions(driver);
-        actions.moveToElement(driver.findElement(byPlayerClassName));
-        wait.until(o -> o.findElement(By.xpath("//*[contains(@class, 'ytp-play-button')]")) != null);
-        driver.findElement(By.xpath("//*[contains(@class, 'ytp-play-button')]")).click();
+        driver.quit();
+        context.close();
 */
+        long sec = Duration.between(startTime, finishTime).getSeconds();
+        System.out.println("Exec time(hh:mm:ss)="+ String.format("%d:%02d:%02d", sec/3600, (sec%3600)/60, (sec%60)));
+
+        Assert.assertNotNull("Attempt to keep browser open", driver.findElement(By.name("OrgStructureViewer_branch_ddl_control_0")));
 
     }
 
