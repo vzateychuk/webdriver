@@ -4,12 +4,13 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import vez.AbstractPage;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import vez.asud.AbstractPage;
 
-class SignInPage  extends AbstractPage {
+class SignInPage extends AbstractPage {
 
-	SignInPage(WebDriver driver) {
-		super(driver);
+	SignInPage(WebDriver driver, WebDriverWait wait) {
+		super(driver, wait);
 
 		if ( !"Вход в АСУД".equals( driver.getTitle() ) ) {
 			throw new IllegalStateException("This is not SignIn page: " + driver.getCurrentUrl());
@@ -33,7 +34,7 @@ class SignInPage  extends AbstractPage {
 		pwdInput.sendKeys(password);
 		pwdInput.sendKeys(Keys.ENTER);
 
-		return new WelcomePage(driver);
+		return new WelcomePage(driver, wait);
 	}
 
 }

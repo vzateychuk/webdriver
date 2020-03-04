@@ -3,12 +3,13 @@ package vez.asud.login;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Select;
-import vez.AbstractPage;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import vez.asud.AbstractPage;
 
 class OrgStructureViewerPage extends AbstractPage {
 
-	OrgStructureViewerPage(WebDriver driver) {
-		super(driver);
+	OrgStructureViewerPage(WebDriver driver, WebDriverWait wait) {
+		super(driver, wait);
 		wait.until(o -> !o.findElements(By.id("MainEx_titlebar_0")).isEmpty());
 	}
 
@@ -27,9 +28,7 @@ class OrgStructureViewerPage extends AbstractPage {
 		// click login
 		wait.until(o -> !o.findElements(By.name("OrgStructureViewer_Link_5")).isEmpty());
 		driver.findElements(By.name("OrgStructureViewer_Button_1")).get(0).click();
-		driver.switchTo().parentFrame();
-		driver.switchTo().parentFrame();
 
-		return new HomePage(driver);
+		return new HomePage(driver, wait);
 	}
 }

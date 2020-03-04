@@ -4,14 +4,16 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import vez.AbstractPage;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import vez.asud.AbstractPage;
 
 import java.time.LocalTime;
 
 public class HomePage extends AbstractPage {
 
-	HomePage(WebDriver driver) {
-		super(driver);
+	HomePage(WebDriver driver, WebDriverWait wait) {
+		super(driver, wait);
+		driver.switchTo().defaultContent();
 		wait.until( ExpectedConditions.visibilityOfElementLocated(By.id("MainEx_view_0")) );
 	}
 

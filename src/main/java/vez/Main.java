@@ -3,27 +3,29 @@ package vez;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
 import vez.asud.config.Beans;
-import vez.asud.login.*;
+import vez.asud.login.HomePage;
+import vez.asud.login.LoginAsUser;
 
 import java.time.Duration;
 import java.time.LocalTime;
-import java.time.temporal.Temporal;
 
 public class Main {
 
     public static void main(String[] args) throws InterruptedException {
 
         AbstractApplicationContext context = new AnnotationConfigApplicationContext(Beans.class);
-        WebDriver driver = (WebDriver) context.getBean("webDriverBean");
+        WebDriver driver = context.getBean("webDriverBean", WebDriver.class);
+        WebDriverWait wait = context.getBean("webDriverWait", WebDriverWait.class);
 
         LocalTime startTime = LocalTime.now();
         System.out.println("Main.main. STARTED: "+ startTime);
 
         // open chrome with login
-        LoginAsUser login = new LoginAsUser(driver);
+        LoginAsUser login = new LoginAsUser(driver, wait);
         // login as
         HomePage homePage = login.loginValidUser("Сидоров С. С.");
         homePage.clickTreeItemTasks();

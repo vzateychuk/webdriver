@@ -1,0 +1,1 @@
+$JDK8/bin/java -Dwebdriver.chrome.driver=$SOFT/chromedriver/chromedriver -Denv=local -jar target/webdriver-asud.jar

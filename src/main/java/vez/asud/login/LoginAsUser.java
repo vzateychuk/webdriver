@@ -1,13 +1,13 @@
 package vez.asud.login;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import vez.asud.AbstractPage;
 
-public class LoginAsUser {
+public class LoginAsUser extends AbstractPage {
 
-	final WebDriver driver;
-
-	public LoginAsUser(WebDriver driver) {
-		this.driver = driver;
+	public LoginAsUser(WebDriver driver, WebDriverWait wait) {
+		super(driver, wait);
 	}
 
 	/**
@@ -17,13 +17,8 @@ public class LoginAsUser {
 	 * @return HomePage object
 	 */
 	public HomePage loginValidUser(String userName) {
-		// swallow the alert
-/*
-		Alert alt = driver.switchTo().alert();
-		alt.accept();
-*/
 		// sign-in
-		SignInPage signInPage = new SignInPage(driver);
+		SignInPage signInPage = new SignInPage(driver, wait);
 		WelcomePage welcomePage = signInPage.loginValidUser("dmowner", "dmowner");
 		// choose profile
 		OrgStructureViewerPage profilePage = welcomePage.openProfilePage();

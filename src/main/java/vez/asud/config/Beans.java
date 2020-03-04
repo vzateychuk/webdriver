@@ -20,6 +20,7 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 public class Beans {
 
     @Value("${asud.url}") private String appUrl;
+    @Value("${timeoutInSeconds:180}") Integer timeoutInSeconds;
 
     @Bean(name="webDriverBean")
     @Description("This is a sample HelloWorld Bean")
@@ -39,6 +40,11 @@ public class Beans {
         Alert alert = driver.switchTo().alert();
         alert.accept();
         return driver;
+    }
+
+    @Bean(name ="webDriverWait")
+    public WebDriverWait webDriverWait(WebDriver webDriverBean) {
+        return new WebDriverWait(webDriverBean, timeoutInSeconds);
     }
 
     @Bean
