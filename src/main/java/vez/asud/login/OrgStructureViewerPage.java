@@ -18,7 +18,9 @@ class OrgStructureViewerPage extends AbstractPage {
 		driver.switchTo().frame("MainEx_titlebar_0");
 		driver.switchTo().frame(0);
 		// select branch
-		Select dropdown = new Select( driver.findElement(By.name("OrgStructureViewer_branch_ddl_control_0")) );
+		By branchBy = By.name("OrgStructureViewer_branch_ddl_control_0");
+		wait.until(o -> !o.findElements(branchBy).isEmpty());
+		Select dropdown = new Select( driver.findElement( branchBy ) );
 		dropdown.selectByVisibleText(" Тестовый филиал");
 
 		// Choose test-user by name
