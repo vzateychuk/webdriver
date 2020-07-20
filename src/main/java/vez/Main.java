@@ -15,7 +15,7 @@ import java.time.LocalTime;
 
 public class Main {
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
 
         AbstractApplicationContext context = new AnnotationConfigApplicationContext(Beans.class);
         WebDriver driver = context.getBean("webDriverBean", WebDriver.class);
