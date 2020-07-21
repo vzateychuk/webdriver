@@ -39,6 +39,7 @@ public class Main {
         driver.quit();
         context.close();
 */
+
         long sec = Duration.between(startTime, finishTime).getSeconds();
         System.out.println("Exec time(hh:mm:ss)="+ String.format("%d:%02d:%02d", sec/3600, (sec%3600)/60, (sec%60)));
 

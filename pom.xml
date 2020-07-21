@@ -8,8 +8,9 @@
     <artifactId>webdriver</artifactId>
     <version>1.0</version>
     <properties>
+        <JDK8>/home/osboxes/soft.lib/jdk1.8</JDK8>
         <springframework.version>4.0.6.RELEASE</springframework.version>
-        <selenium.version>4.0.0-alpha-6</selenium.version>
+        <selenium.version>3.141.59</selenium.version>
     </properties>
 
     <repositories>
@@ -46,7 +47,7 @@
     </dependencies>
 
     <build>
-        <finalName>${project.name}-asud</finalName>
+        <finalName>${project.name}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -87,6 +88,7 @@
                 <configuration>
                     <archive>
                         <manifest>
+                            <manifestFile>src/main/resources/META-INF/MANIFEST.MF</manifestFile>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
                             <mainClass>vez.Main</mainClass>
