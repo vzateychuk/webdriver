@@ -25,13 +25,13 @@ public class Beans {
     @Bean(name="webDriverBean")
     @Description("This is a sample HelloWorld Bean")
     public WebDriver getChromeDriver() {
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("enable-automation",
-                "--no-sandbox",
-                "--disable-infobars",
-                "--disable-dev-shm-usage",
-                "--disable-browser-side-navigation",
-                "--disable-gpu"); // https://stackoverflow.com/a/43840128/1689770
+        ChromeOptions options = new ChromeOptions()
+                .addArguments("enable-automation",
+                        "--no-sandbox",
+                        "--disable-infobars",
+                        "--disable-dev-shm-usage",
+                        "--disable-browser-side-navigation",
+                        "--disable-gpu");
 
         WebDriver driver = new ChromeDriver(options);
         driver.get(appUrl);
