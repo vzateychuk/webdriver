@@ -8,7 +8,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.util.StringUtils;
 import vez.asud.config.Beans;
-import vez.asud.login.HomePage;
+import vez.asud.findoc.OpenDoc;
 import vez.asud.login.LoginAsUser;
 
 import java.time.Duration;
@@ -27,6 +27,7 @@ public class Main {
                 {"IvanovIvanov", "Ivanov I. I."},
             }).collect(Collectors.toMap(s -> s[0], s -> s[1]));
     private static String user = System.getProperty("username");
+    private static String documentId = System.getProperty("documentId");
 
 
     public static void main(String[] args) {
@@ -45,8 +46,13 @@ public class Main {
         if (StringUtils.isEmpty(username)) {
             throw new IllegalArgumentException("User not found: " + user);
         }
-        HomePage homePage = loginPage.loginValidUser(username);
-        homePage.clickTreeItemTasks();
+        loginPage.loginValidUser(username);
+
+        // find document and open
+        if ( !StringUtils.isEmpty(documentId) ) {
+            OpenDoc openDocPage = new OpenDoc(driver, wait);
+            openDocPage.findAndOpenDocument(documentId);
+        }
 
         LocalTime finishTime = LocalTime.now();
         System.out.println("Main.main. FINISH: at "+ finishTime);

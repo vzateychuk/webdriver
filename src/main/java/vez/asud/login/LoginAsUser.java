@@ -14,15 +14,14 @@ public class LoginAsUser extends AbstractPage {
 	 * Login as valid user
 	 *
 	 * @param userName
-	 * @return HomePage object
 	 */
-	public HomePage loginValidUser(String userName) {
+	public void loginValidUser(String userName) {
 		// sign-in
 		SignInPage signInPage = new SignInPage(driver, wait);
 		WelcomePage welcomePage = signInPage.loginValidUser("dmowner", "dmowner");
 		// choose profile
 		OrgStructureViewerPage profilePage = welcomePage.openProfilePage();
 		HomePage homePage = profilePage.loginAs(userName);
-		return homePage;
+        homePage.clickTreeItemTasks();
 	}
 }
