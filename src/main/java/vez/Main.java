@@ -6,14 +6,28 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
+import org.springframework.util.StringUtils;
 import vez.asud.config.Beans;
 import vez.asud.login.HomePage;
 import vez.asud.login.LoginAsUser;
 
 import java.time.Duration;
 import java.time.LocalTime;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Main {
+
+    private static final Map<String, String> userMap = Stream.of( new String[][]{
+                {"SidorovSS", "Сидоров С. С."},
+                {"Polyak.OV", "Поляк А. М."},
+                {"PushkinaPP", "Пушкина П. П."},
+                {"ErmakovEE", "Ермаков Е. Е."},
+                {"IvanovIvanov", "Ivanov I. I."},
+            }).collect(Collectors.toMap(s -> s[0], s -> s[1]));
+    private static String user = System.getProperty("username");
+
 
     public static void main(String[] args) {
 
@@ -25,9 +39,13 @@ public class Main {
         System.out.println("Main.main. STARTED: "+ startTime);
 
         // open chrome with login
-        LoginAsUser login = new LoginAsUser(driver, wait);
+        LoginAsUser loginPage = new LoginAsUser(driver, wait);
         // login as
-        HomePage homePage = login.loginValidUser("Сидоров С. С.");
+        String username = userMap.get(user);
+        if (StringUtils.isEmpty(username)) {
+            throw new IllegalArgumentException("User not found: " + user);
+        }
+        HomePage homePage = loginPage.loginValidUser(username);
         homePage.clickTreeItemTasks();
 
         LocalTime finishTime = LocalTime.now();

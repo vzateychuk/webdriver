@@ -14,6 +14,7 @@ class OrgStructureViewerPage extends AbstractPage {
 	}
 
 	HomePage loginAs(String userName) {
+		System.out.println("OrgStructureViewerPage.loginAs: " + userName);
 		// wait until branches are visible
 		driver.switchTo().frame("MainEx_titlebar_0");
 		driver.switchTo().frame(0);
@@ -24,8 +25,8 @@ class OrgStructureViewerPage extends AbstractPage {
 		dropdown.selectByVisibleText(" Тестовый филиал");
 
 		// Choose test-user by name
-		wait.until(o -> !o.findElements(By.xpath("//*[@title='Сидоров С. С.']")).isEmpty());
-		driver.findElements(By.xpath("//*[@title='Сидоров С. С.']")).get(0).click();
+		wait.until(o -> !o.findElements(By.xpath("//*[@title='"+userName+"']")).isEmpty());
+		driver.findElements(By.xpath("//*[@title='"+userName+"']")).get(0).click();
 
 		// click login
 		wait.until(o -> !o.findElements(By.name("OrgStructureViewer_Link_5")).isEmpty());
